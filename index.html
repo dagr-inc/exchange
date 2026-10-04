@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Monedas | Intercambio Global</title>
+    <meta name="description" content="Conversor de divisas en tiempo real preciso y confiable.">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <div class="background-grid"></div>
+    <main class="container">
+        <header class="header">
+            <h1>Intercambio Global, Precisión en Tiempo Real</h1>
+            <p>Conversión de divisas precisa impulsada por datos financieros de nivel empresarial.</p>
+        </header>
+
+        <section class="converter-card">
+            <div class="converter-inputs">
+                <!-- Origen -->
+                <div class="input-group">
+                    <label for="amount-from">Cantidad</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="amount-from" value="1000.00" min="0" step="any">
+                        <div class="currency-select-wrapper">
+                            <select id="currency-from" aria-label="Moneda de origen">
+                                <option value="USD" selected>🇺🇸 USD</option>
+                                <option value="EUR">🇪🇺 EUR</option>
+                                <option value="GBP">🇬🇧 GBP</option>
+                                <option value="JPY">🇯🇵 JPY</option>
+                                <option value="CAD">🇨🇦 CAD</option>
+                                <option value="AUD">🇦🇺 AUD</option>
+                                <option value="MXN">🇲🇽 MXN</option>
+                                <option value="ARS">🇦🇷 ARS</option>
+                                <option value="COP">🇨🇴 COP</option>
+                                <option value="CLP">🇨🇱 CLP</option>
+                                <option value="BRL">🇧🇷 BRL</option>
+                                <option value="PEN">🇵🇪 PEN</option>
+                                <option value="CNY">🇨🇳 CNY</option>
+                                <option value="INR">🇮🇳 INR</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón Intercambiar -->
+                <button class="swap-btn" id="swap-btn" aria-label="Intercambiar monedas">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m16 3 4 4-4 4"/>
+                        <path d="M20 7H4"/>
+                        <path d="m8 21-4-4 4-4"/>
+                        <path d="M4 17h16"/>
+                    </svg>
+                </button>
+
+                <!-- Destino -->
+                <div class="input-group">
+                    <label for="amount-to">Cantidad convertida</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="amount-to" value="" min="0" step="any">
+                        <div class="currency-select-wrapper">
+                            <select id="currency-to" aria-label="Moneda de destino">
+                                <option value="USD">🇺🇸 USD</option>
+                                <option value="EUR" selected>🇪🇺 EUR</option>
+                                <option value="GBP">🇬🇧 GBP</option>
+                                <option value="JPY">🇯🇵 JPY</option>
+                                <option value="CAD">🇨🇦 CAD</option>
+                                <option value="AUD">🇦🇺 AUD</option>
+                                <option value="MXN">🇲🇽 MXN</option>
+                                <option value="ARS">🇦🇷 ARS</option>
+                                <option value="COP">🇨🇴 COP</option>
+                                <option value="CLP">🇨🇱 CLP</option>
+                                <option value="BRL">🇧🇷 BRL</option>
+                                <option value="PEN">🇵🇪 PEN</option>
+                                <option value="CNY">🇨🇳 CNY</option>
+                                <option value="INR">🇮🇳 INR</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="converter-footer">
+                <div class="rate-info">
+                    <h2 id="rate-summary">Cargando...</h2>
+                    <p id="rate-details">Obteniendo tasas de cambio... <span id="last-updated"></span></p>
+                </div>
+                <!-- Gráfico oculto según los requisitos pero preparado por diseño -->
+                <button class="btn-primary" id="view-chart-btn" style="display:none;">Ver Gráfico</button>
+                <div id="loading-indicator" class="loading hidden">Actualizando...</div>
+                <div id="error-indicator" class="error hidden">Usando modo sin conexión</div>
+            </div>
+        </section>
+
+        <!-- Sección de historial -->
+        <section class="history-accordion">
+            <button class="accordion-header" id="history-toggle">
+                <span>Historial de conversiones</span>
+                <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m6 9 6 6 6-6"/>
+                </svg>
+            </button>
+            <div class="accordion-content" id="history-content">
+                <ul id="history-list" class="history-list">
+                    <!-- Los elementos del historial se inyectarán aquí -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Tarjetas de características -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 2.5-4-1 3.5 7.5L5 18l7.5-3.5 1 4 2.5-2L22 13Z"/></svg>
+                </div>
+                <h3>Tasas en tiempo real</h3>
+                <p>Datos del mercado en vivo actualizados constantemente.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>API segura</h3>
+                <p>Manejo robusto con soporte para modo sin conexión.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                </div>
+                <h3>Alcance global</h3>
+                <p>Soporte para más de 150 divisas mundiales.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-brand">Precisión Fiscal</div>
+        <div class="footer-links">
+            <a href="#">Fuentes de API</a>
+            <a href="#">Términos de Servicio</a>
+            <a href="#">Política de Privacidad</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 Precisión Fiscal. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

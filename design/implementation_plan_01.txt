@@ -1,0 +1,59 @@
+# Desarrollo del Portafolio Personal con Supabase
+
+Desarrollo de una aplicación web completa para el portafolio de Daniel Gonzalez, utilizando React, TailwindCSS, Vite y Supabase para el backend, tal como se especifica en las instrucciones.
+
+## User Review Required
+
+> [!IMPORTANT]  
+> **Creación de usuario Admin**: El registro de nuevos administradores normalmente debe estar restringido o debes ser el único usuario. Por defecto, configuraremos el login para que puedas entrar con el usuario que registres. 
+
+> [!NOTE]  
+> **Datos Simulado**: Crearé la experiencia laboral, habilidades y proyectos ficticios ("inventados") según lo solicitado.
+
+## Proposed Changes
+
+### Backend (Supabase)
+Ejecutaremos código SQL a través del MCP de Supabase para:
+- Crear la tabla `projects` con los siguientes campos: `id`, `title`, `description`, `technologies` (array o texto), `link`, `image_url`, `created_at`.
+- Configurar el Row Level Security (RLS) en la tabla `projects`:
+  - `SELECT`: Público (cualquiera puede ver los proyectos).
+  - `INSERT / UPDATE / DELETE`: Solo usuarios autenticados (administrador).
+- Configurar un bucket de Storage (opcional, o guardaremos URLs de imágenes generadas).
+
+### Frontend (React + Vite + TailwindCSS)
+
+Configuración de enrutamiento con `react-router-dom` y estilos premium usando CSS puro y TailwindCSS.
+
+#### [NEW] src/lib/supabase.ts
+Configuración del cliente de Supabase exportado para uso en toda la app.
+
+#### [NEW] src/App.tsx
+Configuración del Router (`<BrowserRouter>`) con las rutas públicas y privadas.
+
+#### [NEW] src/components/
+- `Navbar.tsx` (Navegación general).
+- `Footer.tsx` (Pie de página).
+- `ProjectCard.tsx` (Para mostrar proyectos individuales con animaciones de "hover").
+- `SkillBar.tsx` (Barras visuales de las habilidades).
+- `ProtectedRoute.tsx` (Para proteger la ruta de administración).
+
+#### [NEW] src/pages/
+- **Públicas**: `Home.tsx`, `Experience.tsx`, `Skills.tsx`, `Projects.tsx`, `About.tsx`, `Contact.tsx`.
+- **Privadas (Admin)**: `AdminLogin.tsx`, `AdminDashboard.tsx`, `AdminProjectForm.tsx` (Creación y Edición).
+
+#### [MODIFY] src/index.css
+Se añadirán tokens de diseño premium (variables HSL, degradados, utilidades de glassmorphism) para un acabado estético de primer nivel.
+
+## Verification Plan
+
+### Manual Verification
+1. **Frontend**:
+   - Navegación fluida por todas las secciones públicas sin estar autenticado.
+   - Verificar que el diseño cumple con los requisitos de calidad y "WOW factor" (micro-animaciones, colores armoniosos, tipografía clara).
+2. **Backend**:
+   - Iniciar sesión en `/admin/login`.
+   - Entrar al `/admin/dashboard` y crear un nuevo proyecto.
+   - Verificar que el proyecto aparezca automáticamente en la sección pública "Proyectos".
+   - Editar y eliminar un proyecto con éxito.
+3. **Seguridad**:
+   - Confirmar que un usuario no autenticado no puede acceder a `/admin/dashboard` ni alterar la base de datos.
